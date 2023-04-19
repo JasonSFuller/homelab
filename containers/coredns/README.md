@@ -1,11 +1,13 @@
 # CoreDNS
 
-Run a CoreDNS container for my home lab for DNS services.
+Run a CoreDNS container for DNS service in my home lab.
 
 - runs in a container, via `podman`
 - live reload configs after saving (both `Corefile` and zones)
 - zones created for .home and .corp TLDs (which are [safe to
   use privately](https://www.icann.org/en/board-activities-and-meetings/materials/approved-board-resolutions-regular-meeting-of-the-icann-board-04-02-2018-en#2.c))
+
+
 
 ## One-time setup
 
@@ -39,6 +41,7 @@ Enable the podman-restart service.
 ```shell
 sudo systemctl enable podman-restart.service
 ```
+
 > :orange_book: **IMPORTANT** -- Podman's daemon-less architecture is a key
 > difference separating it from Docker, so after a reboot, `--restart always`
 > won't work as expected without the `podman-restart` helper service.
