@@ -11,6 +11,14 @@ Run a CoreDNS container for DNS service in my home lab.
 
 ## One-time setup
 
+Clone this repo as a regular, non-root user, and find the CoreDNS directory.
+
+```shell
+mkdir ~/src
+git clone git@github.com:JasonSFuller/homelab.git ~/src/homelab
+cd ~/src/homelab/containers/coredns/
+```
+
 Build the image.
 
 ```shell
@@ -32,8 +40,8 @@ sudo podman run -d \
 Allow DNS traffic through the firewall.
 
 ```shell
-firewall-cmd --permanent --add-service=dns
-firewall-cmd --reload
+sudo firewall-cmd --permanent --add-service=dns
+sudo firewall-cmd --reload
 ```
 
 Enable the podman-restart service.
@@ -55,3 +63,53 @@ sudo systemctl enable podman-restart.service
 >   /etc/systemd/system/container-coredns.service
 > sudo systemctl edit container-coredns.service
 > ```
+
+## Operation
+
+Stop the service.
+
+```shell
+sudo podman stop coredns
+```
+
+Start the service.
+
+```shell
+sudo podman start coredns
+```
+
+Modify the CoreDNS config file.
+
+```shell
+vim data/Corefile
+```
+
+Modify the .home TLD zone.
+
+```shell
+vim data/home.zone
+```
+
+
+
+## Troubleshooting
+
+Send a test DNS query for the default `home.` record.
+
+```console
+[jfuller@lab1 ~]# dig home. @localhost +short
+lab1.home.
+10.0.0.21
+```
+
+Open a shell in the container.
+
+```shell
+sudo podman exec -it coredns bash
+```
+
+View the logs (streaming w/ `-f`).
+
+```shell
+sudo podman logs -f coredns
+```
