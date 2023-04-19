@@ -1,0 +1,60 @@
+#url  --noverifyssl --url='http://lab1.home/iso/CentOS-Stream-9-20230410.0-x86_64-dvd1'
+url  --noverifyssl --url='http://10.0.0.21/iso/CentOS-Stream-9-20230410.0-x86_64-dvd1'
+network --bootproto=dhcp
+
+# change crypted pw with: `openssl passwd -6`
+rootpw --iscrypted $6$yM7SWujaKpBi1cU1$y3UFyvmXnNocHSwGxmehV3dvtUJ6dyPgcpZ8kfLf4TRvFMr8GI02VTAzngRW5UFdySTMo7iIDu2zHvovbFoSC1
+#rootpw homelab123
+
+lang en_US
+keyboard us
+timezone --utc America/New_York
+auth --passalgo=sha512 --useshadow
+selinux --enforcing
+firewall --enabled --service=ssh
+firstboot --disable
+skipx
+text
+reboot
+# --------------------------------------------------------------------
+zerombr
+bootloader --location=mbr
+clearpart --all --initlabel
+part      /boot       --fstype=ext4  --size=1024
+part      pv.01       --fstype=lvmpv --size=1 --ondisk=sda --grow
+volgroup  vg0  pv.01  --pesize=4096
+logvol    /           --fstype=ext4  --name=root  --vgname=vg0 --size=8192
+logvol    swap        --fstype=swap  --name=swap  --vgname=vg0 --size=4096
+logvol    /tmp        --fstype=ext4  --name=tmp   --vgname=vg0 --size=4096
+logvol    /var/log    --fstype=ext4  --name=var   --vgname=vg0 --size=4096
+# --------------------------------------------------------------------
+%packages
+@base
+@core
+ca-certificates
+openssl
+vim-enhanced
+wget
+rsync
+screen
+dstat
+git
+bind-utils
+nfs-utils
+yum-utils
+rpm-build
+rpmdevtools
+redhat-lsb
+bash-completion
+policycoreutils-python
+setroubleshoot-server
+uuid
+nmap
+nmap-ncat
+telnet
+%end
+
+#%post
+## grow the root volume to whatever size is available on the disk
+#lvextend -r -l +100%FREE /dev/vg0/root
+#%end
