@@ -1,0 +1,14 @@
+FROM docker.io/coredns/coredns:1.10.1 as coredns
+FROM quay.io/centos/centos:stream9
+
+RUN dnf update -y && \
+    dnf clean all && \
+    rm -rf /var/cache/dnf
+
+COPY --from=coredns /coredns /usr/local/bin/coredns
+
+EXPOSE 53/tcp
+EXPOSE 53/udp
+VOLUME /etc/coredns
+ENTRYPOINT ["/usr/local/bin/coredns"]
+CMD ["-conf", "/etc/coredns/Corefile"]

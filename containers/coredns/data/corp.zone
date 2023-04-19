@@ -1,0 +1,15 @@
+$ORIGIN corp.
+$TTL 86400
+@ IN SOA dns.corp. hostmaster.corp. (
+					2023041803  ; serial
+					1d          ; refresh period
+					3h          ; retry period
+					3d          ; expire time
+					3h )        ; minimum TTL
+
+					IN	NS		dns
+					IN	MX	10	mail
+					IN	CNAME	www
+www					IN	A		10.1.1.11
+mail				IN	A		10.1.1.22
+dns					IN	CNAME	www
