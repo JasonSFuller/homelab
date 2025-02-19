@@ -1,0 +1,8 @@
+[mirror]
+# DEBUG: change this to 192.168.123.2
+mirror.home ansible_host=192.168.123.125
+
+[all:vars]
+ansible_user=ansible
+ansible_password=ansible
+ansible_become_password=ansible
