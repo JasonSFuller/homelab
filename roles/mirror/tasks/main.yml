@@ -1,0 +1,6 @@
+- name: Include httpd
+  ansible.builtin.include_tasks:
+    file: httpd.yml
+- name: Include httpd
+  ansible.builtin.include_tasks:
+    file: dhcpd.yml

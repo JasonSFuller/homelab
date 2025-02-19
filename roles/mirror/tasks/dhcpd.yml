@@ -1,0 +1,25 @@
+- name: Install dhcpd package
+  ansible.builtin.package:
+    name: dhcp-server
+    state: present
+
+- name: Enable dhcpd service
+  ansible.builtin.systemd_service:
+    name: dhcpd
+    enabled: true
+    masked: false
+
+- name: Allow dhcpd thru firewall
+  ansible.posix.firewalld:
+    service: dhcp
+    state: enabled
+    permanent: true
+    immediate: true
+    offline: true
+
+- name: Config dhcpd
+  ansible.builtin.template:
+    src: dhcpd.conf.j2
+    dest: /etc/dhcp/dhcpd.conf
+    mode: '0644'
+  notify: Restart dhcpd

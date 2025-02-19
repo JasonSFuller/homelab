@@ -1,0 +1,9 @@
+- name: Restart httpd
+  ansible.builtin.systemd_service:
+    name: httpd
+    state: restarted
+
+- name: Restart dhcpd
+  ansible.builtin.systemd_service:
+    name: dhcpd
+    state: restarted

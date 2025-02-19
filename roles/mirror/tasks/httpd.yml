@@ -1,0 +1,34 @@
+- name: Install httpd package
+  ansible.builtin.package:
+    name: httpd
+    state: present
+
+- name: Enable httpd service
+  ansible.builtin.systemd_service:
+    name: httpd
+    enabled: true
+    masked: false
+
+- name: Allow httpd thru firewall
+  ansible.posix.firewalld:
+    service: "{{ item }}"
+    state: enabled
+    permanent: true
+    immediate: true
+    offline: true
+  loop:
+    - http
+    - https
+
+- name: Config - remove welcome
+  ansible.builtin.copy:
+    content: ''
+    dest: /etc/httpd/conf.d/welcome.conf
+    mode: '0644'
+  notify: Restart httpd
+
+- name: Copy web server data
+  ansible.builtin.copy:
+    src: www/
+    dest: /var/www/html/
+    mode: '0644'

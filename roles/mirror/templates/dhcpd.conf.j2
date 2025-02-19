@@ -1,0 +1,23 @@
+default-lease-time 3600;
+max-lease-time 86400;
+authoritative;
+subnet 192.168.123.0 netmask 255.255.255.0 {
+  range 192.168.123.100 192.168.123.200;
+  option routers 192.168.123.1;
+  option subnet-mask 255.255.255.0;
+  option domain-name-servers 192.168.123.1;
+}
+
+allow booting;
+allow bootp;
+class "pxeclients" {
+  match if substring(option vendor-class-identifier, 0, 9) = "PXEClient";
+  next-server 192.168.123.2;
+  filename "pxelinux.0";
+}
+
+host rear-client1 { hardware ethernet 52:54:00:7d:61:b7; fixed-address 192.168.123.10; option host-name "rear-client1.corp"; }
+host rear-client2 { hardware ethernet 52:54:00:3e:90:49; fixed-address 192.168.123.20; option host-name "rear-client2.corp"; }
+host aap25        { hardware ethernet 52:54:00:eb:d0:e4; fixed-address 192.168.123.30; option host-name "aap25.corp"; }
+host talos        { hardware ethernet 52:54:00:d5:09:ff; fixed-address 192.168.123.40; option host-name "talos.corp"; }
+host alaskaair    { hardware ethernet 52:54:00:8d:16:25; fixed-address 192.168.123.50; option host-name "alaskaair.corp"; }
