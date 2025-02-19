@@ -1,0 +1,15 @@
+# A timeout is included here, since this is the default menu loaded by syslinux.
+#
+# Normally, network boot is tried last.  If an OS is detected on an attached
+# disk, the system will boot, giving it preference.  Conversely, if no OS is
+# found, it will fallback to a network boot, and you can install an OS from this
+# menu.  However, some people accidently (or intentionally) network boot first.
+# If this is the case, you WANT the system to continue to boot if no one presses
+# a button, hence the timeout.
+#
+# After the timer is cancelled (and when you go "back to the main menu"), it
+# will not start up again... because it's annoying.
+
+# Wait for 20 seconds
+TIMEOUT 200
+INCLUDE pxelinux.cfg/main

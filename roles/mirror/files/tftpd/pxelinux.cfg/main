@@ -1,0 +1,27 @@
+INCLUDE pxelinux.cfg/common
+
+MENU TITLE Mirror PXE boot -- Main menu
+DEFAULT menu.c32
+PROMPT 0
+ONTIMEOUT local
+
+LABEL local
+  MENU LABEL ^Boot from local hard drive
+  localboot 0xffff
+
+MENU SEPARATOR
+
+LABEL sub-red-hat
+  MENU LABEL ^Red Hat
+  KERNEL menu.c32
+  APPEND pxelinux.cfg/sub-red-hat
+
+LABEL sub-talos
+  MENU LABEL ^Talos
+  KERNEL menu.c32
+  APPEND pxelinux.cfg/sub-talos
+
+LABEL sub-custom
+  MENU LABEL ^Custom
+  KERNEL menu.c32
+  APPEND pxelinux.cfg/sub-custom

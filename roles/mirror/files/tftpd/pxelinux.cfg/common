@@ -1,0 +1,7 @@
+MENU COLOR border     37;40
+MENU COLOR title      37;40
+MENU COLOR unsel      37;40
+MENU COLOR hotkey   1;37;40
+MENU COLOR sel        37;41
+MENU COLOR hotsel   1;37;41
+MENU COLOR disabled   37;40

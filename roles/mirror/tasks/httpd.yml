@@ -1,3 +1,5 @@
+##### Install ##################################################################
+
 - name: Install httpd package
   ansible.builtin.package:
     name: httpd
@@ -9,7 +11,7 @@
     enabled: true
     masked: false
 
-- name: Allow httpd thru firewall
+- name: Allow httpd in firewall
   ansible.posix.firewalld:
     service: "{{ item }}"
     state: enabled
@@ -20,7 +22,9 @@
     - http
     - https
 
-- name: Config - remove welcome
+##### Config ###################################################################
+
+- name: Truncate welcome config
   ansible.builtin.copy:
     content: ''
     dest: /etc/httpd/conf.d/welcome.conf
@@ -29,6 +33,6 @@
 
 - name: Copy web server data
   ansible.builtin.copy:
-    src: www/
+    src: httpd/
     dest: /var/www/html/
     mode: '0644'

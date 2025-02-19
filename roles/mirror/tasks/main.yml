@@ -1,6 +1,12 @@
 - name: Include httpd
   ansible.builtin.include_tasks:
     file: httpd.yml
-- name: Include httpd
+
+# DEBUG FIXME
+# - name: Include dhcpd
+#   ansible.builtin.include_tasks:
+#     file: dhcpd.yml
+
+- name: Include tftpd
   ansible.builtin.include_tasks:
-    file: dhcpd.yml
+    file: tftpd.yml

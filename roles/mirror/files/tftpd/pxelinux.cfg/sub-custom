@@ -1,0 +1,10 @@
+INCLUDE pxelinux.cfg/common
+
+MENU TITLE Custom
+
+LABEL return
+  MENU LABEL ^Back to the main menu
+  KERNEL menu.c32
+  APPEND pxelinux.cfg/main
+
+MENU SEPARATOR

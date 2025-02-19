@@ -1,0 +1,63 @@
+INCLUDE pxelinux.cfg/common
+
+MENU TITLE Red Hat
+
+LABEL return
+  MENU LABEL ^Back to the main menu
+  KERNEL menu.c32
+  APPEND pxelinux.cfg/main
+
+MENU SEPARATOR
+
+LABEL rhel9auto
+  MENU LABEL rhel-9.5-x86_64-dvd (auto)
+  KERNEL images/rhel-9.5-x86_64-dvd/vmlinuz
+  APPEND initrd=images/rhel-9.5-x86_64-dvd/initrd.img inst.repo=http://192.168.123.2/iso/rhel-9.5-x86_64-dvd/ ip=dhcp inst.noverifyssl inst.ks=http://192.168.123.2/ks/rhel-9.5-x86_64-dvd.cfg
+LABEL rhel9manual
+  MENU LABEL rhel-9.5-x86_64-dvd (manual)
+  KERNEL images/rhel-9.5-x86_64-dvd/vmlinuz
+  APPEND initrd=images/rhel-9.5-x86_64-dvd/initrd.img inst.repo=http://192.168.123.2/iso/rhel-9.5-x86_64-dvd/ ip=dhcp inst.noverifyssl
+LABEL rhel9basic
+  MENU LABEL rhel-9.5-x86_64-dvd (manual - basic video driver)
+  KERNEL images/rhel-9.5-x86_64-dvd/vmlinuz
+  APPEND initrd=images/rhel-9.5-x86_64-dvd/initrd.img inst.repo=http://192.168.123.2/iso/rhel-9.5-x86_64-dvd/ ip=dhcp inst.noverifyssl inst.xdriver=vesa nomodeset
+LABEL rhel9rescue
+  MENU LABEL rhel-9.5-x86_64-dvd (rescue)
+  KERNEL images/rhel-9.5-x86_64-dvd/vmlinuz
+  APPEND initrd=images/rhel-9.5-x86_64-dvd/initrd.img inst.repo=http://192.168.123.2/iso/rhel-9.5-x86_64-dvd/ ip=dhcp inst.noverifyssl inst.rescue
+
+MENU SEPARATOR
+LABEL rhel8auto
+  MENU LABEL rhel-8.10-x86_64-dvd (auto)
+  KERNEL images/rhel-8.10-x86_64-dvd/vmlinuz
+  APPEND initrd=images/rhel-8.10-x86_64-dvd/initrd.img inst.repo=http://192.168.123.2/iso/rhel-8.10-x86_64-dvd/ ip=dhcp inst.noverifyssl inst.ks=http://192.168.123.2/ks/rhel-8.10-x86_64-dvd.cfg
+LABEL rhel8manual
+  MENU LABEL rhel-8.10-x86_64-dvd (manual)
+  KERNEL images/rhel-8.10-x86_64-dvd/vmlinuz
+  APPEND initrd=images/rhel-8.10-x86_64-dvd/initrd.img inst.repo=http://192.168.123.2/iso/rhel-8.10-x86_64-dvd/ ip=dhcp inst.noverifyssl
+LABEL rhel8basic
+  MENU LABEL rhel-8.10-x86_64-dvd (manual - basic video driver)
+  KERNEL images/rhel-8.10-x86_64-dvd/vmlinuz
+  APPEND initrd=images/rhel-8.10-x86_64-dvd/initrd.img inst.repo=http://192.168.123.2/iso/rhel-8.10-x86_64-dvd/ ip=dhcp inst.noverifyssl inst.xdriver=vesa nomodeset
+LABEL rhel8rescue
+  MENU LABEL rhel-8.10-x86_64-dvd (rescue)
+  KERNEL images/rhel-8.10-x86_64-dvd/vmlinuz
+  APPEND initrd=images/rhel-8.10-x86_64-dvd/initrd.img inst.repo=http://192.168.123.2/iso/rhel-8.10-x86_64-dvd/ ip=dhcp inst.noverifyssl inst.rescue
+
+MENU SEPARATOR
+LABEL rhel7auto
+  MENU LABEL rhel-server-7.9-x86_64-dvd (auto)
+  KERNEL images/rhel-server-7.9-x86_64-dvd/vmlinuz
+  APPEND initrd=images/rhel-server-7.9-x86_64-dvd/initrd.img inst.repo=http://192.168.123.2/iso/rhel-server-7.9-x86_64-dvd/ ip=dhcp inst.noverifyssl inst.ks=http://192.168.123.2/ks/rhel-server-7.9-x86_64-dvd.cfg
+LABEL rhel7manual
+  MENU LABEL rhel-server-7.9-x86_64-dvd (manual)
+  KERNEL images/rhel-server-7.9-x86_64-dvd/vmlinuz
+  APPEND initrd=images/rhel-server-7.9-x86_64-dvd/initrd.img inst.repo=http://192.168.123.2/iso/rhel-server-7.9-x86_64-dvd/ ip=dhcp inst.noverifyssl
+LABEL rhel7basic
+  MENU LABEL rhel-server-7.9-x86_64-dvd (manual - basic video driver)
+  KERNEL images/rhel-server-7.9-x86_64-dvd/vmlinuz
+  APPEND initrd=images/rhel-server-7.9-x86_64-dvd/initrd.img inst.repo=http://192.168.123.2/iso/rhel-server-7.9-x86_64-dvd/ ip=dhcp inst.noverifyssl inst.xdriver=vesa nomodeset
+LABEL rhel7rescue
+  MENU LABEL rhel-server-7.9-x86_64-dvd (rescue)
+  KERNEL images/rhel-server-7.9-x86_64-dvd/vmlinuz
+  APPEND initrd=images/rhel-server-7.9-x86_64-dvd/initrd.img inst.repo=http://192.168.123.2/iso/rhel-server-7.9-x86_64-dvd/ ip=dhcp inst.noverifyssl inst.rescue

@@ -1,0 +1,44 @@
+##### Install ##################################################################
+
+- name: Install tftpd packages
+  ansible.builtin.package:
+    name:
+      - tftp-server
+      - syslinux-tftpboot
+    state: present
+
+- name: Enable tftpd service
+  ansible.builtin.systemd_service:
+    name: tftp.socket
+    enabled: true
+    masked: false
+
+- name: Allow tftpd in firewall
+  ansible.posix.firewalld:
+    service: tftp
+    state: enabled
+    permanent: true
+    immediate: true
+    offline: true
+
+##### Config ###################################################################
+
+- name: Update tftpd systemd config (enable verbose mode to log client requests)
+  ansible.builtin.template:
+    src: tftp.service.j2
+    dest: /etc/systemd/system/tftp.service
+    mode: '0644'
+  notify: Reload systemd
+
+- name: Copy syslinux PXE boot binaries to tftp dir
+  ansible.builtin.copy:
+    src: /tftpboot/
+    dest: /var/lib/tftpboot/
+    remote_src: true
+    mode: '0644'
+
+- name: Copy tftpd data
+  ansible.builtin.copy:
+    src: tftpd/
+    dest: /var/lib/tftpboot/
+    mode: '0644'

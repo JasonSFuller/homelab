@@ -1,3 +1,5 @@
+##### Install ##################################################################
+
 - name: Install dhcpd package
   ansible.builtin.package:
     name: dhcp-server
@@ -9,7 +11,7 @@
     enabled: true
     masked: false
 
-- name: Allow dhcpd thru firewall
+- name: Allow dhcpd in firewall
   ansible.posix.firewalld:
     service: dhcp
     state: enabled
@@ -17,7 +19,9 @@
     immediate: true
     offline: true
 
-- name: Config dhcpd
+##### Config ###################################################################
+
+- name: Create dhcpd config
   ansible.builtin.template:
     src: dhcpd.conf.j2
     dest: /etc/dhcp/dhcpd.conf

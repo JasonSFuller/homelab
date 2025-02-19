@@ -1,0 +1,21 @@
+INCLUDE pxelinux.cfg/common
+
+MENU TITLE Talos
+
+LABEL return
+  MENU LABEL ^Back to the main menu
+  KERNEL menu.c32
+  APPEND pxelinux.cfg/main
+
+MENU SEPARATOR
+
+LABEL talos-1.9.2 controller
+  MENU LABEL Talos 1.9.2 - homelab controller
+  KERNEL images/talos-1.9.2/vmlinuz-amd64
+#  APPEND initrd=images/talos-1.9.2/initramfs-amd64.xz init_on_alloc=1 slab_nomerge pti=on console=tty0 printk.devkmsg=ontalos.platform=metal talos.config=http://192.168.123.2/k8s/controlplane.yaml
+  APPEND initrd=images/talos-1.9.2/initramfs-amd64.xz init_on_alloc=1 slab_nomerge pti=on console=tty0 printk.devkmsg=on talos.platform=metal talos.config=http://192.168.123.2/k8s/controlplane.yaml
+
+LABEL talos-1.9.2 worker
+  MENU LABEL Talos 1.9.2 - homelab worker
+  KERNEL images/talos-1.9.2/vmlinuz-amd64
+  APPEND initrd=images/talos-1.9.2/initramfs-amd64.xz init_on_alloc=1 slab_nomerge pti=on console=tty0 printk.devkmsg=ontalos.platform=metal talos.config=http://192.168.123.2/k8s/worker.yaml
